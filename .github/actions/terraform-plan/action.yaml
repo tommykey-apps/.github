@@ -1,0 +1,29 @@
+name: Terraform Plan
+description: Run terraform init + plan against the given directory.
+
+inputs:
+  working-directory:
+    description: Directory containing Terraform code
+    required: false
+    default: infra
+  terraform-version:
+    description: Terraform version constraint
+    required: false
+    default: ~1
+
+runs:
+  using: composite
+  steps:
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ inputs.terraform-version }}
+
+    - name: terraform init
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: terraform init -input=false
+
+    - name: terraform plan
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: terraform plan -input=false -no-color
