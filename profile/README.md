@@ -1,1 +1,1 @@
-冨永のポートフォリオ置き場だよ
+graveyard of living-dead small apps nobody knows
